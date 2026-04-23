@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "com.minecraftmod.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"MagicModMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

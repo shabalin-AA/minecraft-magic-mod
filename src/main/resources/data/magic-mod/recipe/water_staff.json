@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  D",
+    " I ",
+    "S  "
+  ],
+  "key": {
+    "S": "minecraft:stick",
+    "D": "minecraft:diamond",
+    "I": "minecraft:iron_ingot"
+  },
+  "result": {
+    "id": "magic-mod:water_staff",
+    "count": 1
+  }
+}

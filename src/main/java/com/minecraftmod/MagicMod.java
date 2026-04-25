@@ -13,5 +13,6 @@ public class MagicMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItems.initialize();
+		ModEntityTypes.initialize();
 	}
 }

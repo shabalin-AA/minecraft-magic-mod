@@ -1,8 +1,9 @@
 package com.minecraftmod;
 
-import com.minecraftmod.item.WaterSpellItem;
+import com.minecraftmod.item.SpellItem;
 import com.minecraftmod.item.WaterStaffItem;
-import com.minecraftmod.spell.WaterSpell;
+import com.minecraftmod.spell.WaterSpell1;
+import com.minecraftmod.spell.WaterSpell2;
 import it.unimi.dsi.fastutil.Pair;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
@@ -25,9 +26,14 @@ public class ModItems {
             new Item.Properties()
                     .durability(10)
     );
-    public static final Item WATER_SPELL = register(
-            "water_spell",
-            (properties) -> new WaterSpellItem(properties, new WaterSpell()),
+    public static final Item WATER_SPELL_1 = register(
+            "water_spell_1",
+            (properties) -> new SpellItem(properties, new WaterSpell1()),
+            new Item.Properties()
+    );
+    public static final Item WATER_SPELL_2 = register(
+            "water_spell_2",
+            (properties) -> new SpellItem(properties, new WaterSpell2()),
             new Item.Properties()
     );
 
@@ -42,7 +48,8 @@ public class ModItems {
         var modItems = Set.of(
                 Pair.of(CreativeModeTabs.INGREDIENTS, SUSPICIOUS_SUBSTANCE),
                 Pair.of(CreativeModeTabs.COMBAT, WATER_STAFF),
-                Pair.of(CreativeModeTabs.COMBAT, WATER_SPELL)
+                Pair.of(CreativeModeTabs.COMBAT, WATER_SPELL_1),
+                Pair.of(CreativeModeTabs.COMBAT, WATER_SPELL_2)
         );
         modItems.forEach(pair -> {
             CreativeModeTabEvents.modifyOutputEvent(pair.left())

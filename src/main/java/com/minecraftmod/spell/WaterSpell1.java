@@ -6,9 +6,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
-public class WaterSpell implements Spell {
+public class WaterSpell1 implements Spell {
 
-    private static final int DAMAGE = 10;
+    private static final int DAMAGE = 5;
 
     @Override
     public void castOnBlock(Level level, BlockHitResult block) {
@@ -23,13 +23,8 @@ public class WaterSpell implements Spell {
 
     private void cast(Level level, BlockPos hitPos) {
         var surfacePos = hitPos.above();
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                BlockPos target = surfacePos.offset(x, 0, z);
-                if (level.getBlockState(target).canBeReplaced()) {
-                    level.setBlock(target, Fluids.WATER.defaultFluidState().createLegacyBlock(), 3);
-                }
-            }
+        if (level.getBlockState(surfacePos).canBeReplaced()) {
+            level.setBlock(surfacePos, Fluids.WATER.defaultFluidState().createLegacyBlock(), 3);
         }
     }
 

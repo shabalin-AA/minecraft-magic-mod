@@ -2,6 +2,8 @@ package com.minecraftmod.item;
 
 import com.minecraftmod.ModEntityTypes;
 import com.minecraftmod.entity.WaterProjectile;
+import com.minecraftmod.spell.DamageSpell;
+import com.minecraftmod.spell.Spell;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -34,6 +36,8 @@ public class WaterStaffItem extends Item {
 
     public static final int DURABILITY_COST_PER_SHOT = 1;
 
+    private static final Spell DEFAULT_SPELL = new DamageSpell();
+
     public WaterStaffItem(Properties properties) {
         super(properties);
     }
@@ -65,15 +69,24 @@ public class WaterStaffItem extends Item {
     @Override
     public boolean releaseUsing(final ItemStack stack, final Level level, final LivingEntity player, final int remainingTime) {
         var charge = getCharge(stack, player, remainingTime);
-        if (!charge.apply) {
+        if (!charge.apply()) {
             return false;
         }
         if (!level.isClientSide()) {
-            createProjectile(player, level, charge);
+            createProjectile(player, level, charge, getSpell(player));
         }
         playSound(level, player);
         stack.hurtAndBreak(DURABILITY_COST_PER_SHOT, player, player.getUsedItemHand());
         return true;
+    }
+
+    Spell getSpell(LivingEntity player) {
+        var mainItem = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
+        var offItem = player.getItemInHand(InteractionHand.OFF_HAND).getItem();
+        if (offItem instanceof WaterStaffItem && mainItem instanceof SpellItem spellItem) {
+            return spellItem.spell;
+        }
+        return DEFAULT_SPELL;
     }
 
     void playSound(Level level, LivingEntity player) {
@@ -85,8 +98,8 @@ public class WaterStaffItem extends Item {
         );
     }
 
-    void createProjectile(LivingEntity player, Level level, Charge charge) {
-        WaterProjectile projectile = new WaterProjectile(ModEntityTypes.WATER_PROJECTILE, level);
+    void createProjectile(LivingEntity player, Level level, Charge charge, Spell spell) {
+        WaterProjectile projectile = new WaterProjectile(ModEntityTypes.WATER_PROJECTILE, level, spell);
         projectile.setPos(
                 player.getX() + player.getLookAngle().x * SPAWN_OFFSET_XZ,
                 player.getEyeY() + SPAWN_OFFSET_Y,

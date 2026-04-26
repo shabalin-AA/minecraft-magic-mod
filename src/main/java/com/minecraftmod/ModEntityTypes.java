@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.Level;
 
 public class ModEntityTypes {
 
@@ -27,7 +28,7 @@ public class ModEntityTypes {
     public static final EntityType<WaterProjectile> WATER_PROJECTILE = register(
             "water_projectile",
             EntityType.Builder.of(
-                    WaterProjectile::new,
+                    (EntityType<WaterProjectile> type, Level level) -> new WaterProjectile(type, level),
                     MobCategory.MISC
             ).sized(0.25f, 0.25f)
     );

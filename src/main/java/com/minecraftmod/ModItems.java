@@ -2,6 +2,8 @@ package com.minecraftmod;
 
 import com.minecraftmod.item.SpellItem;
 import com.minecraftmod.item.WaterStaffItem;
+import com.minecraftmod.spell.FireSpell1;
+import com.minecraftmod.spell.FireSpell2;
 import com.minecraftmod.spell.WaterSpell1;
 import com.minecraftmod.spell.WaterSpell2;
 import it.unimi.dsi.fastutil.Pair;
@@ -36,6 +38,16 @@ public class ModItems {
             (properties) -> new SpellItem(properties, new WaterSpell2()),
             new Item.Properties()
     );
+    public static final Item FIRE_SPELL_1 = register(
+            "fire_spell_1",
+            (properties) -> new SpellItem(properties, new FireSpell1()),
+            new Item.Properties()
+    );
+    public static final Item FIRE_SPELL_2 = register(
+            "fire_spell_2",
+            (properties) -> new SpellItem(properties, new FireSpell2()),
+            new Item.Properties()
+    );
 
     public static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MagicMod.MOD_ID, name));
@@ -49,7 +61,9 @@ public class ModItems {
                 Pair.of(CreativeModeTabs.INGREDIENTS, SUSPICIOUS_SUBSTANCE),
                 Pair.of(CreativeModeTabs.COMBAT, WATER_STAFF),
                 Pair.of(CreativeModeTabs.COMBAT, WATER_SPELL_1),
-                Pair.of(CreativeModeTabs.COMBAT, WATER_SPELL_2)
+                Pair.of(CreativeModeTabs.COMBAT, WATER_SPELL_2),
+                Pair.of(CreativeModeTabs.COMBAT, FIRE_SPELL_1),
+                Pair.of(CreativeModeTabs.COMBAT, FIRE_SPELL_2)
         );
         modItems.forEach(pair -> {
             CreativeModeTabEvents.modifyOutputEvent(pair.left())

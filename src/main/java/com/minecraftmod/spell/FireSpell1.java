@@ -1,10 +1,11 @@
 package com.minecraftmod.spell;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import com.minecraftmod.ModBlocks;
 
 public class FireSpell1 implements Spell {
 
@@ -24,9 +25,11 @@ public class FireSpell1 implements Spell {
     }
 
     private void cast(Level level, BlockPos hitPos) {
-        var surfacePos = hitPos.above();
-        if (level.getBlockState(surfacePos).canBeReplaced()) {
-            level.setBlock(surfacePos, Blocks.FIRE.defaultBlockState(), 3);
+        for (Direction direction : Direction.values()) {
+            var pos = hitPos.relative(direction);
+            if (level.getBlockState(pos).canBeReplaced()) {
+                level.setBlock(pos, ModBlocks.TEMPORARY_FIRE_BLOCK.defaultBlockState(), 3);
+            }
         }
     }
 }

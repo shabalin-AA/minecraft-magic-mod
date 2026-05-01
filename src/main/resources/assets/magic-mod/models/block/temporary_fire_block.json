@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/fire",
+  "textures": {
+    "layer0": "minecraft:block/fire_layer_0",
+    "layer1": "minecraft:block/fire_layer_1"
+  }
+}

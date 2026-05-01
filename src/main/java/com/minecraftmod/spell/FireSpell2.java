@@ -1,6 +1,7 @@
 package com.minecraftmod.spell;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
@@ -28,8 +29,11 @@ public class FireSpell2  implements Spell {
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 BlockPos target = surfacePos.offset(x, 0, z);
-                if (level.getBlockState(target).canBeReplaced()) {
-                    level.setBlock(target, Blocks.FIRE.defaultBlockState(), 3);
+                for (Direction direction : Direction.values()) {
+                    var pos = target.relative(direction);
+                    if (level.getBlockState(pos).canBeReplaced()) {
+                        level.setBlock(pos, Blocks.FIRE.defaultBlockState(), 3);
+                    }
                 }
             }
         }

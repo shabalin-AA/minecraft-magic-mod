@@ -1,16 +1,16 @@
 package com.minecraftmod.spell;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.level.Level.ExplosionInteraction;
 
-public class FireSpell2 implements Spell {
+public class FireSpell3 implements Spell {
 
     private static final int DAMAGE = 10;
     private static final int FIRE_TICKS = 8;
+    private static final int EXPLOSION_RADIUS = 3;
 
     @Override
     public void castOnBlock(Level level, BlockHitResult block) {
@@ -25,17 +25,18 @@ public class FireSpell2 implements Spell {
     }
 
     private void cast(Level level, BlockPos hitPos) {
-        var surfacePos = hitPos.above();
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                BlockPos target = surfacePos.offset(x, 0, z);
-                for (Direction direction : Direction.values()) {
-                    var pos = target.relative(direction);
-                    if (level.getBlockState(pos).canBeReplaced()) {
-                        level.setBlock(pos, Blocks.FIRE.defaultBlockState(), 3);
-                    }
-                }
-            }
-        }
+        if (level.isClientSide()) return;
+        double x = hitPos.getX() + 0.5;
+        double y = hitPos.getY() + 0.5;
+        double z = hitPos.getZ() + 0.5;
+        level.explode(
+                null,
+                x, y, z,
+                EXPLOSION_RADIUS,
+                true,
+                ExplosionInteraction.MOB
+        );
     }
+
 }
+

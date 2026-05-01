@@ -50,6 +50,11 @@ public class ModItems {
             (properties) -> new SpellItem(properties, new FireSpell3()),
             new Item.Properties()
     );
+    public static final Item AIR_SPELL_1 = register(
+            "air_spell_1",
+            (properties) -> new SpellItem(properties, new AirSpell1()),
+            new Item.Properties()
+    );
 
     public static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MagicMod.MOD_ID, name));
@@ -66,7 +71,8 @@ public class ModItems {
                 Pair.of(CreativeModeTabs.COMBAT, WATER_SPELL_2),
                 Pair.of(CreativeModeTabs.COMBAT, FIRE_SPELL_1),
                 Pair.of(CreativeModeTabs.COMBAT, FIRE_SPELL_2),
-                Pair.of(CreativeModeTabs.COMBAT, FIRE_SPELL_3)
+                Pair.of(CreativeModeTabs.COMBAT, FIRE_SPELL_3),
+                Pair.of(CreativeModeTabs.COMBAT, AIR_SPELL_1)
         );
         modItems.forEach(pair -> {
             CreativeModeTabEvents.modifyOutputEvent(pair.left())

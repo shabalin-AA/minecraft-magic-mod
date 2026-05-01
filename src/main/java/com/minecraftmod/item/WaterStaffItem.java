@@ -99,7 +99,7 @@ public class WaterStaffItem extends Item {
     }
 
     void createProjectile(LivingEntity player, Level level, Charge charge, Spell spell) {
-        WaterProjectile projectile = new WaterProjectile(ModEntityTypes.WATER_PROJECTILE, level, spell);
+        WaterProjectile projectile = new WaterProjectile(ModEntityTypes.WATER_PROJECTILE, player, level, spell);
         projectile.setPos(
                 player.getX() + player.getLookAngle().x * SPAWN_OFFSET_XZ,
                 player.getEyeY() + SPAWN_OFFSET_Y,

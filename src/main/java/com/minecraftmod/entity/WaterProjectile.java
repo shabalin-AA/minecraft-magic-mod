@@ -4,6 +4,7 @@ package com.minecraftmod.entity;
 import com.minecraftmod.spell.Spell;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -15,8 +16,8 @@ public class WaterProjectile extends SpellProjectile implements ItemSupplier {
         super(type, level);
     }
 
-    public WaterProjectile(EntityType<WaterProjectile> type, Level level, Spell spell) {
-        super(type, level, spell);
+    public WaterProjectile(EntityType<WaterProjectile> type, LivingEntity player, Level level, Spell spell) {
+        super(type, player, level, spell);
     }
 
     @Override

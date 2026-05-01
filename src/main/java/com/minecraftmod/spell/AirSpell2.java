@@ -8,9 +8,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
-public class AirSpell1 implements Spell {
+public class AirSpell2 implements Spell {
 
     private static final double LAUNCH_POWER = 2.2;
+    private static final double HORIZONTAL_KNOCKBACK = 1.5;
     private static final double RADIUS = 3.0;
     private static final int DAMAGE = 5;
 
@@ -27,7 +28,7 @@ public class AirSpell1 implements Spell {
         var targets = level.getEntities(null, searchBox);
         for (var target : targets) {
             System.out.println(target);
-            cast(target);
+            cast(caster, target);
         }
     }
 
@@ -37,10 +38,15 @@ public class AirSpell1 implements Spell {
         var target = entity.getEntity();
         level.levelEvent(LevelEvent.PARTICLES_ELECTRIC_SPARK, target.blockPosition(), 0);
         target.hurt(target.damageSources().magic(), DAMAGE);
-        cast(target);
+        cast(caster, target);
     }
 
-    private void cast(Entity target) {
-        target.push(0.0, LAUNCH_POWER, 0.0);
+    private void cast(LivingEntity caster, Entity target) {
+        var direction = target.position().subtract(caster.position()).normalize();
+        target.push(
+                direction.x * HORIZONTAL_KNOCKBACK,
+                LAUNCH_POWER,
+               direction.z * HORIZONTAL_KNOCKBACK
+        );
     }
 }

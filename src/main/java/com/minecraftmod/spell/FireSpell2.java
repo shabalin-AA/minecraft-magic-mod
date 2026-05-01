@@ -2,6 +2,7 @@ package com.minecraftmod.spell;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
@@ -13,12 +14,12 @@ public class FireSpell2 implements Spell {
     private static final int FIRE_TICKS = 8;
 
     @Override
-    public void castOnBlock(Level level, BlockHitResult block) {
+    public void castOnBlock(LivingEntity caster, Level level, BlockHitResult block) {
         cast(level, block.getBlockPos());
     }
 
     @Override
-    public void castOnEntity(Level level, EntityHitResult entity) {
+    public void castOnEntity(LivingEntity caster, Level level, EntityHitResult entity) {
         entity.getEntity().hurt(entity.getEntity().damageSources().magic(), DAMAGE);
         entity.getEntity().setRemainingFireTicks(FIRE_TICKS);
         cast(level, entity.getEntity().getOnPos());

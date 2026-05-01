@@ -1,1 +1,7 @@
-{ "variants": { "": { "model": "magic-mod:block/temporary_fire_block" } } }
+{
+  "variants": {
+    "": {
+      "model": "magic-mod:block/temporary_fire_block"
+    }
+  }
+}

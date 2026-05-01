@@ -16,10 +16,23 @@ public class ModBlocks {
             "temporary_fire_block",
             props -> new TemporaryFireBlock(props, 300),
             BlockBehaviour.Properties.of()
+                    .ignitedByLava()
+                    .noCollision()
+                    .noOcclusion()
+                    .instabreak()
+                    .strength(0.0F)
+                    .lightLevel(state -> 15)
     );
 
-    public static <T extends Block> T register(String name, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings) {
-        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MagicMod.MOD_ID, name));
+    public static <T extends Block> T register(
+            String name,
+            Function<BlockBehaviour.Properties, T> blockFactory,
+            BlockBehaviour.Properties settings
+    ) {
+        ResourceKey<Block> key = ResourceKey.create(
+                Registries.BLOCK,
+                Identifier.fromNamespaceAndPath(MagicMod.MOD_ID, name)
+        );
         T item = blockFactory.apply(settings.setId(key));
         Registry.register(BuiltInRegistries.BLOCK, key, item);
         return item;

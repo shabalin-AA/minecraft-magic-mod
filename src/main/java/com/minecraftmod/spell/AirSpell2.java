@@ -10,8 +10,8 @@ import net.minecraft.world.phys.EntityHitResult;
 
 public class AirSpell2 implements Spell {
 
-    private static final double LAUNCH_POWER = 2.2;
-    private static final double HORIZONTAL_KNOCKBACK = 1.5;
+    private static final double LAUNCH_POWER = 1.5;
+    private static final double HORIZONTAL_KNOCKBACK = 3;
     private static final double RADIUS = 3.0;
     private static final int DAMAGE = 5;
 

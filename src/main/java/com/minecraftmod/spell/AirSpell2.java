@@ -1,6 +1,9 @@
 package com.minecraftmod.spell;
 
+import com.minecraftmod.entity.SpellProjectile;
+import com.minecraftmod.entity.WaterProjectile;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LevelEvent;
@@ -39,6 +42,11 @@ public class AirSpell2 implements Spell {
         level.levelEvent(LevelEvent.PARTICLES_ELECTRIC_SPARK, target.blockPosition(), 0);
         target.hurt(target.damageSources().magic(), DAMAGE);
         cast(caster, target);
+    }
+
+    @Override
+    public SpellProjectile createProjectile(EntityType<WaterProjectile> type, LivingEntity player, Level level) {
+        return new WaterProjectile(type, player, level, this);
     }
 
     private void cast(LivingEntity caster, Entity target) {

@@ -1,5 +1,8 @@
 package com.minecraftmod.spell;
 
+import com.minecraftmod.entity.SpellProjectile;
+import com.minecraftmod.entity.WaterProjectile;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -17,4 +20,6 @@ public interface Spell {
             Level level,
             EntityHitResult entity
     );
+
+    SpellProjectile createProjectile(EntityType<WaterProjectile> type, LivingEntity player, Level level);
 }

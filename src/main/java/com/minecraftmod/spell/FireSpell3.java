@@ -1,6 +1,9 @@
 package com.minecraftmod.spell;
 
+import com.minecraftmod.entity.SpellProjectile;
+import com.minecraftmod.entity.WaterProjectile;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -23,6 +26,11 @@ public class FireSpell3 implements Spell {
         entity.getEntity().hurt(entity.getEntity().damageSources().magic(), DAMAGE);
         entity.getEntity().setRemainingFireTicks(FIRE_TICKS);
         cast(level, entity.getEntity().getOnPos());
+    }
+
+    @Override
+    public SpellProjectile createProjectile(EntityType<WaterProjectile> type, LivingEntity player, Level level) {
+        return new WaterProjectile(type, player, level, this);
     }
 
     private void cast(Level level, BlockPos hitPos) {

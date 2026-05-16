@@ -28,7 +28,7 @@ public class ModItems {
     public static final Item WATER_SPELL_1 = register(
             "water_spell_1",
             (properties) -> new SpellItem(properties, new WaterSpell1()),
-            new Item.Properties()
+            new Item.Properties().durability(100)
     );
     public static final Item WATER_SPELL_2 = register(
             "water_spell_2",

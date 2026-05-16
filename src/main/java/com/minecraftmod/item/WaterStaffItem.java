@@ -72,18 +72,18 @@ public class WaterStaffItem extends Item {
         if (!charge.apply()) {
             return false;
         }
+        var mainItem = player.getMainHandItem();
         if (!level.isClientSide()) {
-            createProjectile(player, level, charge, getSpell(player));
+            createProjectile(player, level, charge, getSpell(mainItem));
+            ((SpellItem) mainItem.getItem()).applyCooldown(player.getMainHandItem());
         }
         playSound(level, player);
         stack.hurtAndBreak(DURABILITY_COST_PER_SHOT, player, player.getUsedItemHand());
         return true;
     }
 
-    Spell getSpell(LivingEntity player) {
-        var mainItem = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        var offItem = player.getItemInHand(InteractionHand.OFF_HAND).getItem();
-        if (offItem instanceof WaterStaffItem && mainItem instanceof SpellItem spellItem) {
+    Spell getSpell(ItemStack mainItemStack) {
+        if (mainItemStack.getItem() instanceof SpellItem spellItem && spellItem.isReady(mainItemStack)) {
             return spellItem.spell;
         }
         return DEFAULT_SPELL;
